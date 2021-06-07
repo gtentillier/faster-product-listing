@@ -117,7 +117,7 @@ class scrapper:
                         break
                     
                 csv_dict['Urls']=sub_urls
-                csv_dict['Label']=''
+                csv_dict['Label']=label
                 with open('scrapper/Dataset2/summary.csv', 'a', encoding='UTF8') as f:
                     writer = csv.DictWriter(f, fieldnames=headers, lineterminator='\r')
                     writer.writerow(csv_dict)  
