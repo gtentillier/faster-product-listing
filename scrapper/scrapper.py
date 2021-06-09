@@ -62,66 +62,70 @@ class scrapper:
         csv_dict={}
         for i in range(self.fpage, self.lpage+1):
             #time.sleep(20)
+            print(url+'/p-'+str(i)+'/')
             source_code = self.session.get(url+'/p-'+str(i)+'/')
             plain_text_brand = source_code.text
             soup = BeautifulSoup(plain_text_brand, "html.parser") 
             parts=dirpath.split('/')
             csv_dict['Category']=parts[3]
-            csv_dict['SubCategory']=parts[4]     
+            csv_dict['SubCategory']=parts[4]      
+            #Extracting sexy stuff
             for link in soup.findAll('div', {'class':'productSnippet'}):
                 #a = str(link.select('a', {'class':'ng-star-inserted'})).split(' ')
                 a=link.find('a', {'itemprop':'url'})
-                a_url=a['href']
-                brand=link.find('span', {'itemprop':'brand'})
-                csv_dict['Brand']=brand.text
-                uni_id=uuid.uuid4()
-                make_dir(dirpath+str(uni_id))
-                csv_dict['Product_ID']=uni_id
-                #time.sleep(5)
-                resp_text = self.session.get(self.parent_url+a_url)
-                plain_text_details = resp_text.text
-                soup2 = BeautifulSoup(plain_text_details, "html.parser")
-                items=[]
-                for div in soup2.findAll('div', {'class':'productDetails__resume__characteristics'}):
-                    items=div.findAll('p')[-1]
-                    items=[x for x in cleansing(str(items)).strip().split(' ') if x != '']  
-                items.append(brand.text)
-                txt_file = open(dirpath+str(uni_id)+'/'+str(uni_id)+'.txt','w')
-                txt_file.write(",".join(items))
-                txt_file.close()
-                if len(items)>1:
-                    csv_dict['Color']=items[0]
-                    csv_dict['Material']=items[1]
-                else:
-                    csv_dict['Color']='None'
-                    csv_dict['Material']='None'
-                loc_c=1
-                s_chk=True
-                p_size=0
-                label=''
-                sub_urls=[]
-                for img in soup2.findAll('img', {'class':'image'}): 
-                    if s_chk:
-                        p_size=int(img['width'])
-                        label=img['alt']
-                        s_chk=False
-                    if int(img['width'])==p_size:
-                        d_url=img['src']
-                        sub_urls.append(d_url)
-                        resp_img = self.session.get(d_url)
-                        img_file = open(dirpath+str(uni_id)+'/'+str(uni_id)+'_'+str(loc_c)+'.jpg', "wb")
-                        img_file.write(resp_img.content)
-                        img_file.close()
-                        loc_c+=1
+                if a!=None:
+                    a_url=a['href']
+                    brand=link.find('span', {'itemprop':'brand'})
+                    csv_dict['Brand']=brand.text
+                    uni_id=uuid.uuid4()
+                    make_dir(dirpath+str(uni_id))
+                    csv_dict['Product_ID']=uni_id
+                    #time.sleep(5)
+                    #print(self.parent_url+a) urls fucked up
+                    resp_text = self.session.get(self.parent_url+a_url)
+                    plain_text_details = resp_text.text
+                    soup2 = BeautifulSoup(plain_text_details, "html.parser")
+                    items=[]
+                    for div in soup2.findAll('div', {'class':'productDetails__resume__characteristics'}):
+                        items=div.findAll('p')[-1]
+                        items=[x for x in cleansing(str(items)).strip().split(' ') if x != '']  
+                    items.append(brand.text)
+                    txt_file = open(dirpath+str(uni_id)+'/'+str(uni_id)+'.txt','w')
+                    txt_file.write(",".join(items))
+                    txt_file.close()
+                    if len(items)>1:
+                        csv_dict['Color']=items[0]
+                        csv_dict['Material']=items[1]
                     else:
-                        break
-                    
-                csv_dict['Urls']=sub_urls
-                csv_dict['Label']=label
-                with open('scrapper/Dataset2/summary.csv', 'a', encoding='UTF8') as f:
-                    writer = csv.DictWriter(f, fieldnames=headers, lineterminator='\r')
-                    writer.writerow(csv_dict)  
-                #csv_dict={}
+                        csv_dict['Color']='None'
+                        csv_dict['Material']='None'
+                    loc_c=1
+                    s_chk=True
+                    p_size=0
+                    label=''
+                    sub_urls=[]
+                    for img in soup2.findAll('img', {'class':'image'}): 
+                        if s_chk:
+                            p_size=int(img['width'])
+                            label=img['alt']
+                            s_chk=False
+                        if int(img['width'])==p_size:
+                            d_url=img['src']
+                            sub_urls.append(d_url)
+                            resp_img = self.session.get(d_url)
+                            img_file = open(dirpath+str(uni_id)+'/'+str(uni_id)+'_'+str(loc_c)+'.jpg', "wb")
+                            img_file.write(resp_img.content)
+                            img_file.close()
+                            loc_c+=1
+                        else:
+                            break
+                        
+                    csv_dict['Urls']=sub_urls
+                    csv_dict['Label']=label
+                    with open('scrapper/Dataset2/summary.csv', 'a', encoding='UTF8') as f:
+                        writer = csv.DictWriter(f, fieldnames=headers, lineterminator='\r')
+                        writer.writerow(csv_dict)  
+                    #csv_dict={}
     
     
 if __name__ == "__main__":
