@@ -8,11 +8,8 @@ from bs4 import BeautifulSoup
 import requests
 import re
 import os 
-import time
 import uuid
 import csv
-
-#os.chdir('C:\\Users\\Talha\\Downloads\\Internship\\Init ML\\Task_1_vestiairecollective\\scrapper\Dataset2')
 
 headers=['Product_ID', 'Label', 'Category', 'SubCategory','Brand','Color','Material', 'Urls']
 def cleansing(text):
@@ -70,7 +67,7 @@ class scrapper:
             soup = BeautifulSoup(plain_text_brand, "html.parser") 
             parts=dirpath.split('/')
             csv_dict['Category']=parts[3]
-            csv_dict['SubCategory']=parts[4]  
+            csv_dict['SubCategory']=parts[4]   
             for link in soup.findAll('div', {'class':'productSnippet'}):
                 #a = str(link.select('a', {'class':'ng-star-inserted'})).split(' ')
                 a=link.find('a', {'itemprop':'url'})
@@ -90,7 +87,7 @@ class scrapper:
                         items=div.findAll('p')[-1]
                         items=[x for x in cleansing(str(items)).strip().split(' ') if x != '']  
                     items.append(brand.text)
-                    txt_file = open(dirpath+str(uni_id)+'/'+str(uni_id)+'.txt','w')
+                    txt_file = open(dirpath+str(uni_id)+'/'+str(uni_id)+'.txt','w', encoding='utf-8')
                     txt_file.write(",".join(items))
                     txt_file.close()
                     if len(items)>1:
@@ -169,101 +166,101 @@ if __name__ == "__main__":
     
     
     
-    #csv_file('scrapper/Dataset2/summary.csv', headers, 'w')
+    csv_file('scrapper/Dataset2/summary.csv', headers, 'w')
     ###---------------------------------------------Category - Women------------------------------------------###
     
     #-----------------------------------------------clothing----------------------------------------------------
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/coats/', 'https://us.vestiairecollective.com/women-clothing/coats/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/trenchcoats/', 'https://us.vestiairecollective.com/women-clothing/trench-coats/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/jackets/', 'https://us.vestiairecollective.com/women-clothing/jackets/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/bikerjackets/', 'https://us.vestiairecollective.com/women-clothing/biker-jackets/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/dresses/', 'https://us.vestiairecollective.com/women-clothing/dresses/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/knitwear/', 'https://us.vestiairecollective.com/women-clothing/knitwear/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/tops/', 'https://us.vestiairecollective.com/women-clothing/tops/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/skirts/', 'https://us.vestiairecollective.com/women-clothing/skirts/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/shorts/', 'https://us.vestiairecollective.com/women-clothing/shorts/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/trousers/', 'https://us.vestiairecollective.com/women-clothing/trousers/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/jeans/', 'https://us.vestiairecollective.com/women-clothing/jeans/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/jumpsuits/', 'https://us.vestiairecollective.com/women-clothing/jumpsuits/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/lingerie/', 'https://us.vestiairecollective.com/women-clothing/lingerie/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/clothing/swimwear/', 'https://us.vestiairecollective.com/women-clothing/swimwear/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/coats/', 'https://us.vestiairecollective.com/women-clothing/coats/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/trenchcoats/', 'https://us.vestiairecollective.com/women-clothing/trench-coats/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/jackets/', 'https://us.vestiairecollective.com/women-clothing/jackets/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/bikerjackets/', 'https://us.vestiairecollective.com/women-clothing/biker-jackets/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/dresses/', 'https://us.vestiairecollective.com/women-clothing/dresses/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/knitwear/', 'https://us.vestiairecollective.com/women-clothing/knitwear/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/tops/', 'https://us.vestiairecollective.com/women-clothing/tops/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/skirts/', 'https://us.vestiairecollective.com/women-clothing/skirts/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/shorts/', 'https://us.vestiairecollective.com/women-clothing/shorts/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/trousers/', 'https://us.vestiairecollective.com/women-clothing/trousers/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/jeans/', 'https://us.vestiairecollective.com/women-clothing/jeans/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/jumpsuits/', 'https://us.vestiairecollective.com/women-clothing/jumpsuits/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/lingerie/', 'https://us.vestiairecollective.com/women-clothing/lingerie/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/clothing/swimwear/', 'https://us.vestiairecollective.com/women-clothing/swimwear/')
     
     # # # #-----------------------------------------------Bags------------------------------------------------------
-    #scrap.start_scrapping('scrapper/Dataset2/Women/Bags/handbags/', 'https://us.vestiairecollective.com/women-bags/handbags/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/Bags/totes/', 'https://us.vestiairecollective.com/women-bags/handbags/totes/_l/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/Bags/crossbodybags/', 'https://us.vestiairecollective.com/women-bags/handbags/crossbody-bags/_l/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/Bags/clutchbags/', 'https://us.vestiairecollective.com/women-bags/clutch-bags/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/Bags/beltbags/', 'https://us.vestiairecollective.com/women-bags/belt-bags/')
-    #scrap.start_scrapping('scrapper/Dataset2/Women/Bags/backpacks/', 'https://us.vestiairecollective.com/women-bags/backpacks/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Bags/handbags/', 'https://us.vestiairecollective.com/women-bags/handbags/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Bags/totes/', 'https://us.vestiairecollective.com/women-bags/handbags/totes/_l/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Bags/crossbodybags/', 'https://us.vestiairecollective.com/women-bags/handbags/crossbody-bags/_l/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Bags/clutchbags/', 'https://us.vestiairecollective.com/women-bags/clutch-bags/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Bags/beltbags/', 'https://us.vestiairecollective.com/women-bags/belt-bags/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Bags/backpacks/', 'https://us.vestiairecollective.com/women-bags/backpacks/')
     scrap.start_scrapping('scrapper/Dataset2/Women/Bags/travelbags/', 'https://us.vestiairecollective.com/women-bags/travel-bags/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Bags/satchels/', 'https://us.vestiairecollective.com/women-bags/handbags/satchels/_l/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Bags/satchels/', 'https://us.vestiairecollective.com/women-bags/handbags/satchels/_l/')
     
     # # # #----------------------------------------------Jewellery--------------------------------------------------------
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/rings/', 'https://us.vestiairecollective.com/women-jewellery/rings/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/bracelets/', 'https://us.vestiairecollective.com/women-jewellery/bracelets/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/necklaces/', 'https://us.vestiairecollective.com/women-jewellery/necklaces/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women//Jewelleryearrings/', 'https://us.vestiairecollective.com/women-jewellery/earrings/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/rings/', 'https://us.vestiairecollective.com/women-jewellery/rings/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/bracelets/', 'https://us.vestiairecollective.com/women-jewellery/bracelets/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/necklaces/', 'https://us.vestiairecollective.com/women-jewellery/necklaces/')
+    scrap.start_scrapping('scrapper/Dataset2/Women//Jewelleryearrings/', 'https://us.vestiairecollective.com/women-jewellery/earrings/')
     
     
     # # # #---------------------------------------------Shoes---------------------------------------------------------------
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/heels/', 'https://us.vestiairecollective.com/women-shoes/heels/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/ankleboots/', 'https://us.vestiairecollective.com/women-shoes/ankle-boots/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/boots/', 'https://us.vestiairecollective.com/women-shoes/boots/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/sandals/', 'https://us.vestiairecollective.com/women-shoes/sandals/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/espadrilles/', 'https://us.vestiairecollective.com/women-shoes/espadrilles/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/mulesclogs/', 'https://us.vestiairecollective.com/women-shoes/mules-clogs/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/trainers/', 'https://us.vestiairecollective.com/women-shoes/trainers/') 
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/flats/', 'https://us.vestiairecollective.com/women-shoes/flats/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/balletflats/', 'https://us.vestiairecollective.com/women-shoes/ballet-flats/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/laceups/', 'https://us.vestiairecollective.com/women-shoes/lace-ups/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/heels/', 'https://us.vestiairecollective.com/women-shoes/heels/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/ankleboots/', 'https://us.vestiairecollective.com/women-shoes/ankle-boots/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/boots/', 'https://us.vestiairecollective.com/women-shoes/boots/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/sandals/', 'https://us.vestiairecollective.com/women-shoes/sandals/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/espadrilles/', 'https://us.vestiairecollective.com/women-shoes/espadrilles/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/mulesclogs/', 'https://us.vestiairecollective.com/women-shoes/mules-clogs/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/trainers/', 'https://us.vestiairecollective.com/women-shoes/trainers/') 
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/flats/', 'https://us.vestiairecollective.com/women-shoes/flats/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/balletflats/', 'https://us.vestiairecollective.com/women-shoes/ballet-flats/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Shoes/laceups/', 'https://us.vestiairecollective.com/women-shoes/lace-ups/')
     
     
     # # # #------------------------------------------------Accessories-------------------------------------------------
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/scarves/', 'https://us.vestiairecollective.com/women-accessories/scarves/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/silkhandkerchief/', 'https://us.vestiairecollective.com/women-accessories/silk-handkerchief/') 
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/gloves/', 'https://us.vestiairecollective.com/women-accessories/gloves/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/hats/', 'https://us.vestiairecollective.com/women-accessories/hats/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/wallet/', 'https://us.vestiairecollective.com/women-accessories/wallet/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/belts/', 'https://us.vestiairecollective.com/women-accessories/belts/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/sunglasses/', 'https://us.vestiairecollective.com/women-accessories/sunglasses/')
-    # scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/purseswalletscases/', 'https://us.vestiairecollective.com/women-accessories/purses-wallets-cases/') 
+    scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/scarves/', 'https://us.vestiairecollective.com/women-accessories/scarves/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/silkhandkerchief/', 'https://us.vestiairecollective.com/women-accessories/silk-handkerchief/') 
+    scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/gloves/', 'https://us.vestiairecollective.com/women-accessories/gloves/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/hats/', 'https://us.vestiairecollective.com/women-accessories/hats/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/wallet/', 'https://us.vestiairecollective.com/women-accessories/wallet/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/belts/', 'https://us.vestiairecollective.com/women-accessories/belts/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/sunglasses/', 'https://us.vestiairecollective.com/women-accessories/sunglasses/')
+    scrap.start_scrapping('scrapper/Dataset2/Women/Accessories/purseswalletscases/', 'https://us.vestiairecollective.com/women-accessories/purses-wallets-cases/') 
     
     
     # # ###--------------------------------------------Category - Men---------------------------------------------------------------
     
     # # #----------------------------------------------Clothing----------------------------------------------------------
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/coats/', 'https://us.vestiairecollective.com/men-clothing/coats/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/jackets/', 'https://us.vestiairecollective.com/men-clothing/jackets/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/knitwearsweatshirts/', 'https://us.vestiairecollective.com/men-clothing/knitwear-sweatshirts/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/shirts/', 'https://us.vestiairecollective.com/men-clothing/shirts/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/poloshirts/', 'https://us.vestiairecollective.com/men-clothing/polo-shirts/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/tshirts/', 'https://us.vestiairecollective.com/men-clothing/t-shirts/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/jeans/', 'https://us.vestiairecollective.com/men-clothing/jeans/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/trousers/', 'https://us.vestiairecollective.com/men-clothing/trousers/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/shorts/', 'https://us.vestiairecollective.com/men-clothing/shorts/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/suits/', 'https://us.vestiairecollective.com/men-clothing/suits/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/swimwear/', 'https://us.vestiairecollective.com/men-clothing/swimwear/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/coats/', 'https://us.vestiairecollective.com/men-clothing/coats/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/jackets/', 'https://us.vestiairecollective.com/men-clothing/jackets/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/knitwearsweatshirts/', 'https://us.vestiairecollective.com/men-clothing/knitwear-sweatshirts/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/shirts/', 'https://us.vestiairecollective.com/men-clothing/shirts/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/poloshirts/', 'https://us.vestiairecollective.com/men-clothing/polo-shirts/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/tshirts/', 'https://us.vestiairecollective.com/men-clothing/t-shirts/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/jeans/', 'https://us.vestiairecollective.com/men-clothing/jeans/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/trousers/', 'https://us.vestiairecollective.com/men-clothing/trousers/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/shorts/', 'https://us.vestiairecollective.com/men-clothing/shorts/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/suits/', 'https://us.vestiairecollective.com/men-clothing/suits/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/swimwear/', 'https://us.vestiairecollective.com/men-clothing/swimwear/')
     
     # # # #----------------------------------------------Shoes-------------------------------------------------------------
-    # scrap.start_scrappin('scrapper/Dataset2/Men/Shoes/trainers/', 'https://us.vestiairecollective.com/men-shoes/trainers/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/boots/', 'https://us.vestiairecollective.com/men-shoes/boots/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/laceups/', 'https://us.vestiairecollective.com/men-shoes/lace-ups/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/flats/', 'https://us.vestiairecollective.com/men-shoes/flats/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/sandals/', 'https://us.vestiairecollective.com/men-shoes/sandals/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/espadrilles/', 'https://us.vestiairecollective.com/men-shoes/espadrilles/')
+    scrap.start_scrappin('scrapper/Dataset2/Men/Shoes/trainers/', 'https://us.vestiairecollective.com/men-shoes/trainers/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/boots/', 'https://us.vestiairecollective.com/men-shoes/boots/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/laceups/', 'https://us.vestiairecollective.com/men-shoes/lace-ups/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/flats/', 'https://us.vestiairecollective.com/men-shoes/flats/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/sandals/', 'https://us.vestiairecollective.com/men-shoes/sandals/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/espadrilles/', 'https://us.vestiairecollective.com/men-shoes/espadrilles/')
     
     # # # #----------------------------------------------Bags & Accessories------------------------------------------------
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/bags/', 'https://us.vestiairecollective.com/men-bags/bags/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/small-bags-wallets-cases/', 'https://us.vestiairecollective.com/men-bags/small-bags-wallets-cases/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/beltbags/', 'https://us.vestiairecollective.com/men-bags/belt-bags/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/belts/', 'https://us.vestiairecollective.com/men-accessories/belts/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/sunglasses/', 'https://us.vestiairecollective.com/men-accessories/sunglasses/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/scarves-pocket-squares/', 'https://us.vestiairecollective.com/men-accessories/scarves-pocket-squares/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/ties/', 'https://us.vestiairecollective.com/men-accessories/ties/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/hats-pull-on-hats/', 'https://us.vestiairecollective.com/men-accessories/hats-pull-on-hats/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/gloves/', 'https://us.vestiairecollective.com/men-accessories/gloves/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/cufflinks/', 'https://us.vestiairecollective.com/men-accessories/cufflinks/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/bags/', 'https://us.vestiairecollective.com/men-bags/bags/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/small-bags-wallets-cases/', 'https://us.vestiairecollective.com/men-bags/small-bags-wallets-cases/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/beltbags/', 'https://us.vestiairecollective.com/men-bags/belt-bags/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/belts/', 'https://us.vestiairecollective.com/men-accessories/belts/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/sunglasses/', 'https://us.vestiairecollective.com/men-accessories/sunglasses/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/scarves-pocket-squares/', 'https://us.vestiairecollective.com/men-accessories/scarves-pocket-squares/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/ties/', 'https://us.vestiairecollective.com/men-accessories/ties/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/hats-pull-on-hats/', 'https://us.vestiairecollective.com/men-accessories/hats-pull-on-hats/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/gloves/', 'https://us.vestiairecollective.com/men-accessories/gloves/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Bags & Accessories/cufflinks/', 'https://us.vestiairecollective.com/men-accessories/cufflinks/')
     
     # # # #----------------------------------------------Watches & Jewellery-----------------------------------------------
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Watches & Jewellery/watches/', 'https://us.vestiairecollective.com/men-accessories/watches/')
-    # scrap.start_scrapping('scrapper/Dataset2/Men/Watches & Jewellery/jewellery/', 'https://us.vestiairecollective.com/men-accessories/jewellery/')  
+    scrap.start_scrapping('scrapper/Dataset2/Men/Watches & Jewellery/watches/', 'https://us.vestiairecollective.com/men-accessories/watches/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Watches & Jewellery/jewellery/', 'https://us.vestiairecollective.com/men-accessories/jewellery/')  
