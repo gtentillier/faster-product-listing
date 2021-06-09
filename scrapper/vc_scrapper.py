@@ -70,8 +70,7 @@ class scrapper:
             soup = BeautifulSoup(plain_text_brand, "html.parser") 
             parts=dirpath.split('/')
             csv_dict['Category']=parts[3]
-            csv_dict['SubCategory']=parts[4]      
-            #Extracting sexy stuff
+            csv_dict['SubCategory']=parts[4]  
             for link in soup.findAll('div', {'class':'productSnippet'}):
                 #a = str(link.select('a', {'class':'ng-star-inserted'})).split(' ')
                 a=link.find('a', {'itemprop':'url'})
@@ -83,7 +82,6 @@ class scrapper:
                     make_dir(dirpath+str(uni_id))
                     csv_dict['Product_ID']=uni_id
                     #time.sleep(5)
-                    #print(self.parent_url+a) urls fucked up
                     resp_text = self.session.get(self.parent_url+a_url)
                     plain_text_details = resp_text.text
                     soup2 = BeautifulSoup(plain_text_details, "html.parser")
