@@ -10,6 +10,7 @@ import re
 import os 
 import uuid
 import csv
+import glob
 
 headers=['Product_ID', 'Label', 'Category', 'SubCategory','Brand','Color','Material', 'Urls']
 def cleansing(text):
@@ -31,6 +32,13 @@ def make_dir(dirName):
     except FileExistsError:
         print("Directory " , dirName ,  "Already exists") 
 
+
+def make_csv(path, headers, mode):
+    if len(glob.glob(path+'/*.csv'))==0:
+        csv_file(path+'/summary.csv', headers, mode)   
+        print("CSV File" , 'Summary.csv' ,  "Created ")
+    else: 
+        print("CSV File" , 'Summary.csv' ,  "Already exists") 
 
 class loginSession:
     def __init__(self, data, params, header, loginUrl):
@@ -122,7 +130,6 @@ class scrapper:
                     with open('scrapper/Dataset2/summary.csv', 'a', encoding='UTF8') as f:
                         writer = csv.DictWriter(f, fieldnames=headers, lineterminator='\r')
                         writer.writerow(csv_dict)  
-                    #csv_dict={}
     
     
 if __name__ == "__main__":
@@ -165,8 +172,7 @@ if __name__ == "__main__":
     make_dir('scrapper/Dataset2/Men/Watches & Jewellery') 
     
     
-    
-    csv_file('scrapper/Dataset2/summary.csv', headers, 'w')
+    make_csv('scrapper/Dataset2', headers, 'w')
     ###---------------------------------------------Category - Women------------------------------------------###
     
     #-----------------------------------------------clothing----------------------------------------------------
@@ -185,7 +191,7 @@ if __name__ == "__main__":
     scrap.start_scrapping('scrapper/Dataset2/Women/clothing/lingerie/', 'https://us.vestiairecollective.com/women-clothing/lingerie/')
     scrap.start_scrapping('scrapper/Dataset2/Women/clothing/swimwear/', 'https://us.vestiairecollective.com/women-clothing/swimwear/')
     
-    # # # #-----------------------------------------------Bags------------------------------------------------------
+    # # #-----------------------------------------------Bags------------------------------------------------------
     scrap.start_scrapping('scrapper/Dataset2/Women/Bags/handbags/', 'https://us.vestiairecollective.com/women-bags/handbags/')
     scrap.start_scrapping('scrapper/Dataset2/Women/Bags/totes/', 'https://us.vestiairecollective.com/women-bags/handbags/totes/_l/')
     scrap.start_scrapping('scrapper/Dataset2/Women/Bags/crossbodybags/', 'https://us.vestiairecollective.com/women-bags/handbags/crossbody-bags/_l/')
@@ -195,11 +201,11 @@ if __name__ == "__main__":
     scrap.start_scrapping('scrapper/Dataset2/Women/Bags/travelbags/', 'https://us.vestiairecollective.com/women-bags/travel-bags/')
     scrap.start_scrapping('scrapper/Dataset2/Women/Bags/satchels/', 'https://us.vestiairecollective.com/women-bags/handbags/satchels/_l/')
     
-    # # # #----------------------------------------------Jewellery--------------------------------------------------------
+    # # #----------------------------------------------Jewellery--------------------------------------------------------
     scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/rings/', 'https://us.vestiairecollective.com/women-jewellery/rings/')
     scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/bracelets/', 'https://us.vestiairecollective.com/women-jewellery/bracelets/')
     scrap.start_scrapping('scrapper/Dataset2/Women/Jewellery/necklaces/', 'https://us.vestiairecollective.com/women-jewellery/necklaces/')
-    scrap.start_scrapping('scrapper/Dataset2/Women//Jewelleryearrings/', 'https://us.vestiairecollective.com/women-jewellery/earrings/')
+    scrap.start_scrapping('scrapper/Dataset2/Women//Jewellery/earrings/', 'https://us.vestiairecollective.com/women-jewellery/earrings/')
     
     
     # # # #---------------------------------------------Shoes---------------------------------------------------------------
@@ -242,7 +248,7 @@ if __name__ == "__main__":
     scrap.start_scrapping('scrapper/Dataset2/Men/Clothing/swimwear/', 'https://us.vestiairecollective.com/men-clothing/swimwear/')
     
     # # # #----------------------------------------------Shoes-------------------------------------------------------------
-    scrap.start_scrappin('scrapper/Dataset2/Men/Shoes/trainers/', 'https://us.vestiairecollective.com/men-shoes/trainers/')
+    scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/trainers/', 'https://us.vestiairecollective.com/men-shoes/trainers/')
     scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/boots/', 'https://us.vestiairecollective.com/men-shoes/boots/')
     scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/laceups/', 'https://us.vestiairecollective.com/men-shoes/lace-ups/')
     scrap.start_scrapping('scrapper/Dataset2/Men/Shoes/flats/', 'https://us.vestiairecollective.com/men-shoes/flats/')
