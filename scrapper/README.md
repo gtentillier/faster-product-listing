@@ -12,9 +12,9 @@
 
 2. Install dependencies
 
-```:bash
-python3 -m pip install -r requirements.txt
-```
+   ```:bash
+   python3 -m pip install -r requirements.txt
+   ```
 
 ## Vestiaire Collective Requirements
 
