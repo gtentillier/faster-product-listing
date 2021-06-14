@@ -12,7 +12,9 @@ import uuid
 import csv
 import glob
 
+#Header for the summary.csv file
 headers=['Product_ID', 'Label', 'Category', 'SubCategory','Brand','Color','Material', 'Urls']
+
 def cleansing(text):
     text=text.strip()
     regex = re.compile('[(){}—*^:;£$",.”“!%&+-/Ã©§™]|<[^>]*>')
@@ -24,7 +26,7 @@ def csv_file(path, data, mode):
     writer = csv.writer(f, lineterminator='\r')
     writer.writerow(data)
     f.close()
-
+    
 def make_dir(dirName):
     try:
         os.makedirs(dirName)    
@@ -32,14 +34,13 @@ def make_dir(dirName):
     except FileExistsError:
         print("Directory " , dirName ,  "Already exists") 
 
-
 def make_csv(path, headers, mode):
     if len(glob.glob(path+'/*.csv'))==0:
         csv_file(path+'/summary.csv', headers, mode)   
         print("CSV File" , 'Summary.csv' ,  "Created ")
     else: 
         print("CSV File" , 'Summary.csv' ,  "Already exists") 
-
+        
 class loginSession:
     def __init__(self, data, params, header, loginUrl):
         self.data = data
@@ -65,9 +66,9 @@ class scrapper:
         self.parent_url='https://us.vestiairecollective.com'
         
     def start_scrapping(self, dirpath, url):
-        make_dir(dirpath)
+        make_dir(dirpath) # for making the subcategory directory
         csv_dict={}
-        for i in range(self.fpage, self.lpage+1):
+        for i in range(self.fpage, self.lpage+1): #traversing product pages (1-17)
             #time.sleep(20)
             print(url+'/p-'+str(i)+'/')
             source_code = self.session.get(url+'/p-'+str(i)+'/')
@@ -77,7 +78,6 @@ class scrapper:
             csv_dict['Category']=parts[3]
             csv_dict['SubCategory']=parts[4]   
             for link in soup.findAll('div', {'class':'productSnippet'}):
-                #a = str(link.select('a', {'class':'ng-star-inserted'})).split(' ')
                 a=link.find('a', {'itemprop':'url'})
                 if a!=None:
                     a_url=a['href']
