@@ -1,5 +1,5 @@
 
-# faster-product-listing Scrapper
+# Vestiaire Collective Scrapper
 
 ## Some Requirements
 
